@@ -16,7 +16,7 @@ class CreateStockPerformanceTable extends Migration
     {
         Schema::create('stock_performance', function (Blueprint $table) {
             $table->id();
-            $table->string('stock_symbol', 50)->index()->comment('股票代號');
+            $table->string('stock_symbol', 50)->index()->comment('股票代號，大盤為0');
             $table->date('crawled_at')->comment('爬蟲資料建立時間');
             $table->decimal('three_days')->comment('三日');
             $table->decimal('one_week')->comment('一週');
