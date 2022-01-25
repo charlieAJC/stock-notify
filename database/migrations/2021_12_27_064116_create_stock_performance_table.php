@@ -35,7 +35,6 @@ class CreateStockPerformanceTable extends Migration
             $table->timestamps();
 
             $table->unique(['stock_symbol', 'crawled_at']);
-            $table->index('stock_symbol');
         });
         DB::statement("ALTER TABLE `stock_performance` comment '股票近期表現 注意數據已去除百分號'");
     }
