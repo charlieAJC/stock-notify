@@ -10,6 +10,10 @@ class StockController extends Controller
 
     public function getTest()
     {
+        // https://ithelp.ithome.com.tw/articles/10267818
+        // 關於 $this->processMessage() 的 reply_markup 參數
+        // https://ithelp.ithome.com.tw/articles/10247929
+
         // 傳送訊息
         // $response = $this->apiRequest('sendMessage', [
         //     'chat_id' => 835826701,
@@ -32,12 +36,21 @@ class StockController extends Controller
         // case 2.若帶尚未生成訊息的 update_id，則此連線會維持 timeout 秒，
         //      若在這時間內訊息都沒有生成， timeout 秒後會收到空陣列
         //      若在這時間內訊息生成，會立刻收到該訊息的資訊
-        // https://ithelp.ithome.com.tw/articles/10267818
-        $response = $this->apiRequest('getUpdates', [
-            'offset' => 850477351,
+        // $response = $this->apiRequest('getUpdates', [
+        //     'offset' => 850477351,
+        //     'timeout' => 30,
+        // ]);
+
+        // 接收後回傳訊息
+        $responses = $this->apiRequest('getUpdates', [
+            'offset' => 850477363,
             'timeout' => 30,
         ]);
-
-        dd($response);
+        collect($responses['result'])->map(function ($response, $key) {
+            dump($response);
+            // dump($this->processMessage($response['message']));
+        });
+        // dd('ok');
+        // dd($responses);
     }
 }
