@@ -75,8 +75,9 @@ trait TelegramTrait
                 'chat_id' => $chatId,
                 'text' => 'Nice to meet you :D',
             ]);
-            // } elseif (stripos($text, '/stop') === 0) {
-            //     // stop now
+        } elseif (stripos($text, '/stop') === 0) {
+            // stop now
+            dd('someone press stop');
         }
         return $this->apiRequest('sendMessage', [
             'chat_id' => $chatId,

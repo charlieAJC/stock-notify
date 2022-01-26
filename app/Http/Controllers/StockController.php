@@ -10,7 +10,7 @@ class StockController extends Controller
 
     public function getTest()
     {
-        // https://ithelp.ithome.com.tw/articles/10267818
+        // https://ithelp.ithome.com.tw/articles/10274778
         // 關於 $this->processMessage() 的 reply_markup 參數
         // https://ithelp.ithome.com.tw/articles/10247929
 
@@ -41,16 +41,23 @@ class StockController extends Controller
         //     'timeout' => 30,
         // ]);
 
-        // 接收後回傳訊息
-        $responses = $this->apiRequest('getUpdates', [
-            'offset' => 850477363,
-            'timeout' => 30,
-        ]);
-        collect($responses['result'])->map(function ($response, $key) {
-            dump($response);
-            // dump($this->processMessage($response['message']));
-        });
-        // dd('ok');
-        // dd($responses);
+        // 不斷接收訊息後回傳
+        // $updateId = 0;
+        // while (true) {
+        //     $responses = $this->apiRequest('getUpdates', [
+        //         'offset' => $updateId,
+        //         'timeout' => 30,
+        //     ]);
+        //     dump($responses);
+        //     collect($responses['result'])->map(function ($response) {
+        //         // dump($this->processMessage($response['message']));
+        //         $this->processMessage($response['message']);
+        //     });
+        //     if ($responses['result']) {
+        //         $lastArrayKey = array_key_last($responses['result']);
+        //         $updateId = $responses['result'][$lastArrayKey]['update_id'] + 1;
+        //         dump("new update_id is: {$updateId}");
+        //     }
+        // }
     }
 }
