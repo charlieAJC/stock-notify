@@ -59,5 +59,27 @@ class StockController extends Controller
         //         dump("new update_id is: {$updateId}");
         //     }
         // }
+
+        // 發送 Markdown 訊息
+        $response = $this->apiRequestJson('sendMessage', [
+            'chat_id' => 835826701,
+            // 漲跌emoji https://apps.timwhitlock.info/emoji/tables/unicode
+            // 漲 \xF0\x9F\x94\xBA
+            // 跌 \xF0\x9F\x94\xBB
+            'text' => preg_replace('/^\s+/m', '', "
+                2330 台積電
+                收盤日\:2021/1/28
+                收盤價\:666 \xF0\x9F\x94\xBA\(6\.6%\)
+                籌碼\:
+                \| 單位\(張\) \| 買賣超 \| 連買連賣 \|
+                \| \-\-\- \| \-\-\- \| \-\-\- \|
+                \| 外資 \| \-107,225 \| 連4賣 \(\-201,394\) \|
+                \| 投信 \| \-8,963 \| 連3買→賣 \(\-8,963\) \|
+                \| 自營商 \| \-16,025 \| 連2買→賣 \(\-16,025\) \|
+                \| 三大法人 \| \-132,213 \| 連4賣 \(\-223,938\) \|
+            "),
+            'parse_mode' => 'MarkdownV2',
+        ]);
+        dd($response);
     }
 }
