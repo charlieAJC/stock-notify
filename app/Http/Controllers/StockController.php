@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Traits\TelegramTrait;
+use App\Services\TelegramService;
+use App\Traits\TelegramTrait;
 
 class StockController extends Controller
 {
@@ -63,9 +64,6 @@ class StockController extends Controller
         // 發送 Markdown 訊息
         $response = $this->apiRequestJson('sendMessage', [
             'chat_id' => 835826701,
-            // 漲跌emoji https://apps.timwhitlock.info/emoji/tables/unicode
-            // 漲 \xF0\x9F\x94\xBA
-            // 跌 \xF0\x9F\x94\xBB
             'text' => preg_replace('/^\s+/m', '', "
                 2330 台積電
                 收盤日\:2021/1/28
@@ -81,5 +79,14 @@ class StockController extends Controller
             'parse_mode' => 'MarkdownV2',
         ]);
         dd($response);
+    }
+
+    /**
+     * 通訊軟體機器人接收與回覆訊息
+     */
+    public function getMessageAndReturn()
+    {
+        $service = new TelegramService();
+        $service->getMessageAndReturn();
     }
 }
